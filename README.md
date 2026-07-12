@@ -60,6 +60,29 @@ healthcare-portal/
   modal shows the generated ticket code.
 - **My appointments**: patient's own bookings with status labels.
 
+## Deployment to Production
+
+This project is ready for production deployment! See detailed guides:
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Complete deployment guide for Vercel, Netlify, or GitHub Pages
+- **[PRODUCTION-CHECKLIST.md](./PRODUCTION-CHECKLIST.md)** - Pre-deployment security and optimization checklist
+
+### Quick Deploy
+```bash
+# Push to GitHub
+git push -u origin main
+
+# Deploy to Vercel
+vercel --prod
+
+# Or deploy to Netlify
+netlify deploy --prod
+```
+
+Configuration files included:
+- `vercel.json` - Vercel deployment configuration with security headers
+- `netlify.toml` - Netlify deployment configuration with caching rules
+- `.env.example` - Environment variables template
+
 ## Suggested next steps
 
 - Doctor-facing view (a `role = 'doctor'` dashboard to manage their own

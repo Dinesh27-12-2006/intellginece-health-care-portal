@@ -1,0 +1,74 @@
+name: Validate Code
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - develop
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Check for sensitive files
+        run: |
+          if [ -f ".env" ]; then
+            echo "Error: .env file should not be committed!"
+            exit 1
+          fi
+          echo "✓ No sensitive files found"
+      
+      - name: Validate HTML files
+        run: |
+          echo "Checking HTML files exist..."
+          files=("index.html" "login.html" "signup.html" "dashboard.html")
+          for file in "${files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "Error: $file not found!"
+              exit 1
+            fi
+          done
+          echo "✓ All HTML files present"
+      
+      - name: Validate JavaScript files
+        run: |
+          echo "Checking JavaScript files exist..."
+          files=("js/auth.js" "js/dashboard.js" "js/supabaseClient.js")
+          for file in "${files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "Error: $file not found!"
+              exit 1
+            fi
+          done
+          echo "✓ All JavaScript files present"
+      
+      - name: Check for console.log statements
+        run: |
+          if grep -r "console\.log" js/ --include="*.js"; then
+            echo "Warning: console.log statements found in production code"
+            echo "Consider removing them for production"
+          else
+            echo "✓ No console.log statements found"
+          fi
+      
+      - name: Validate CSS files
+        run: |
+          if [ ! -f "css/styles.css" ]; then
+            echo "Error: css/styles.css not found!"
+            exit 1
+          fi
+          echo "✓ CSS files present"
+      
+      - name: Check .env.example exists
+        run: |
+          if [ ! -f ".env.example" ]; then
+            echo "Error: .env.example not found!"
+            exit 1
+          fi
+          echo "✓ .env.example present"
