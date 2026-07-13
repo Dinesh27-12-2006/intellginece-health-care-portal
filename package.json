@@ -1,0 +1,13 @@
+{
+  "name": "intelligent-healthcare-portal",
+  "version": "1.0.0",
+  "description": "Intelligent Healthcare Portal - Real-time Doctor Appointment Booking",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": ["healthcare", "appointment", "booking", "supabase"],
+  "author": "Dinesh",
+  "license": "MIT"
+}
